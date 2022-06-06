@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class SecondFragment extends Fragment {
+public class SecondFragment extends Fragment implements onItemClick {
     private RecyclerView recyclerView;
     private ArrayList<Music> music;
     private TextView textView;
@@ -34,17 +35,9 @@ public class SecondFragment extends Fragment {
         recyclerView = view.findViewById(R.id.view);
         textView = view.findViewById(R.id.text_second);
         loadDate();
-        MusicAdapter adapter = new MusicAdapter(music, new OnItemClickListener() {
-            @Override
-            public void OnItemClick(int pos) {
-                    Intent intent = new Intent(requireActivity(), SecondActivity.class);
-                    intent.putExtra("text", music.toString().isEmpty());
-                    startActivity(intent);
-            }
-        });
+        MusicAdapter adapter = new MusicAdapter(music,this);
         recyclerView.setAdapter(adapter);
     }
-
     private void loadDate() {
         music = new ArrayList<>();
         music.add(new Music("Ulukmanapo", "Ла лига", 1, "3:45"));
@@ -58,5 +51,12 @@ public class SecondFragment extends Fragment {
         music.add(new Music("Ulukmanapo", "Бэнгер", 9, "1:12"));
         music.add(new Music("Ulukmanapo", "Так и понимай", 10, "3:55"));
     }
-
+    @Override
+    public void onClick(Music music) {
+        Intent intent=new Intent(requireActivity(),SecondActivity.class);
+        intent.putExtra("text",music.getName_second());
+        startActivity(intent);
+        Toast.makeText(getActivity(), "Click",
+                Toast.LENGTH_LONG).show();
+    }
 }

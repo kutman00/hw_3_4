@@ -13,11 +13,11 @@ import java.util.ArrayList;
 
 public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHolder> {
     private ArrayList<Music> music;
-    private OnItemClickListener clickListener;
+    private onItemClick onItemClick;
 
-    public MusicAdapter(ArrayList<Music> music, OnItemClickListener clickListener) {
+    public MusicAdapter(ArrayList<Music> music,onItemClick onItemClick) {
         this.music = music;
-        this.clickListener = clickListener;
+        this.onItemClick= onItemClick;
     }
 
     @NonNull
@@ -33,7 +33,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.MusicViewHol
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                clickListener.OnItemClick(position);
+                onItemClick.onClick(music.get(position));
             }
         });
     }
